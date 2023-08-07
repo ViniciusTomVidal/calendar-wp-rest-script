@@ -69,7 +69,7 @@ const changeMonth = (event) => {
   const filter = events.value.findIndex((x) => {
     return new Date(x.date).getMonth() + 1 === event;
   });
-  if(filter != -1)
+  if(filter != -1 && events.value.length > 4)
     if ((events.value.length - 4) >= filter) {
       elementFocus.value = filter;
     } else {
