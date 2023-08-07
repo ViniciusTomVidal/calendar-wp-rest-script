@@ -22,6 +22,7 @@ let elementFocus = ref(0);
 const getEvents = () => {
   axios.get(replaceUrlBase(urlBase, '/wp-json/wp-calendar/v1/events')).then((x) => {
     events.value = x.data;
+    if(events.value.length > 0)
     month.value = new Date(events.value[0].date).getMonth() + 1;
     loading.value = false;
   })
