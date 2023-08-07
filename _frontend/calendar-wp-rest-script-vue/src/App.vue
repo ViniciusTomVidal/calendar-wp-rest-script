@@ -103,7 +103,7 @@ const changeMonth = (event) => {
                 </a>
               </li>
             </ul>
-            <div class="buttons-overflow flex flex-end">
+            <div class="buttons-overflow flex flex-end" v-if="events.length > 4">
               <a href="#" style="transform: rotate(180deg)" @click="scrollUp()" onclick="return false" :class="{'notFocus' : elementFocus === 0}" >
                 <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
