@@ -3,8 +3,8 @@ let vueColorCron, textColorCron, urlBaseCron, classContainerCron, eventsLastCron
 class newCron {
     constructor(object) {
         if (object == null) {
-            if (typeof calendarAttributes !== 'undefined') {
-                object = calendarAttributes;
+            if (typeof cronAttributes !== 'undefined') {
+                object = cronAttributes;
             }
         }
 
@@ -15,14 +15,13 @@ class newCron {
         var scriptSrc = scriptElement.src;
         const scriptBase = scriptSrc.replace("/_script/cron.app.js", "");
 
-        vueColorCron = object.hasOwnProperty("vueColorCron") ? object.vueColor : "#37BBC7";
-        textColorCron = object.hasOwnProperty("textColorCron") ? object.textColor : "#1E1E1E";
-        classContainerCron = object.hasOwnProperty("classContainerCron") ? object.classContainer : "container";
-        urlBaseCron = object.hasOwnProperty("urlBaseCron") ? object.urlBase : scriptBase;
+        vueColorCron = object.hasOwnProperty("vueColorCron") ? object.vueColorCron : "#37BBC7";
+        textColorCron = object.hasOwnProperty("textColorCron") ? object.textColorCron : "#1E1E1E";
+        urlBaseCron = object.hasOwnProperty("urlBaseCron") ? object.urlBaseCron : scriptBase;
         eventsLastCron = object.hasOwnProperty("eventsLastCron") ? object.eventsLast : false;
         titleEventCron = object.hasOwnProperty("titleEventCron") ? object.titleEvent : "Próximos conteúdos";
         positionEventCron = object.hasOwnProperty("positionEventCron") ? object.positionEventCron : "bottom-right";
-        positionBottom = object.hasOwnProperty("positionBottom") ? object.positionBottom : 20;
+        positionBottom = object.hasOwnProperty("positionBottom") ? object.positionBottom : 100;
 
         // Criação do elemento <script>
         var vueScriptElement = document.createElement('script');

@@ -15,8 +15,8 @@ if(isset($_POST['container'])) {
     update_option('cron_container', $_POST['container']);
 }
 
-if(isset($_POST['position'])) {
-    update_option('cron_position', $_POST['cron_position']);
+if(isset($_POST['posicao'])) {
+    update_option('cron_position', $_POST['posicao']);
 }
 
 if(isset($_POST['position-bottom'])) {
@@ -122,7 +122,7 @@ $position_bottom = get_option("cron-position-bottom") ? get_option("cron-positio
 <script>
 /* Contagem regressiva Script - Posicionar abaixo do body */
 var e=document.createElement("script");
-e.src="<?php echo $plugin_directory_url;?>/_script/cron.app.js",e.id="script-cron",document.body.appendChild(e),cronAttributes = {'titleEvent' : '<?php echo $title?>', 'vueColor' : '<?php echo $color?>', 'textColor' : '<?php echo $color_text?>', 'classContainer' : '<?php echo $container?>', 'positionEventCron' : '<?php echo $position ?>', 'positionBottom' : <?php echo $position_bottom?>};
+e.src="<?php echo $plugin_directory_url;?>/_script/cron.app.js",e.id="script-cron",document.body.appendChild(e),cronAttributes = {'vueColorCron' : '<?php echo $color?>', 'textColorCron' : '<?php echo $color_text?>', 'positionEventCron' : '<?php echo $position ?>', 'positionBottom' : <?php echo $position_bottom?>};
 </script>
 
 <!-- Posicione a contagem regressiva onde deseja que ele renderize -->
