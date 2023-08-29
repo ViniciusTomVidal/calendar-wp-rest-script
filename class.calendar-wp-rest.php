@@ -61,7 +61,7 @@ class CalendarWPRest {
 
         $args = [
             'post_type' => 'agenda', // Substitua pelo tipo de post que você deseja buscar
-            'posts_per_page' => 1, // Para buscar todos os posts, use -1
+            'posts_per_page' => -1, // Para buscar todos os posts, use -1
             'meta_query' => array(
                 array(
                     'key' => '_data', // Nome do campo personalizado (meta)
@@ -91,8 +91,40 @@ class CalendarWPRest {
             $post->hora_inicio = get_post_meta($post->ID,'_hora_inicio', true) ? get_post_meta($post->ID,'_hora_inicio', true) : "00:00";
 
             if($current_date === get_post_meta($post->ID,'_data', true)) {
-                if (strtotime($post->hora_inicio) > strtotime($current_time)) {
-                    $posts_return[] = $post;
+                $post_in = [];
+                foreach ($posts as $post_1) {
+                    $post_in[] =$post_1->ID;
+                }
+                $args_ = [
+                    'post_type' => 'agenda', // Substitua pelo tipo de post que você deseja buscar
+                    'post__in' => $post_in, // Para buscar todos os posts, use -1
+                    'meta_query' => array(
+                        array(
+                            'key' => '_hora_inicio', // Nome do campo personalizado (meta)
+                            'value' => $current_time, // Data específica após a qual você deseja buscar
+                            'compare' => '>=', // Buscar datas maiores ou iguais
+                            'type' => 'TIME',
+                        ),
+                    ),
+                    'meta_key' => '_hora_inicio', // Chave para ordenação pela data do evento
+                    'orderby' => 'meta_value', // Ordenar pela chave do meta
+                    'order' => 'ASC', // Ordenar em ordem crescente (ASC) ou decrescente (DESC)
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'planos', // Replace with the desired taxonomy name
+                            'field' => 'slug', // Use 'slug' if searching by taxonomy slug
+                            'terms' => $_GET['plano'], // Replace with the desired term slug
+                        ),
+                    ),
+                ];
+                $posts_ = get_posts($args_);
+                foreach ($posts_ as $post_2) {
+                    $post_2->date = get_post_meta($post_2->ID,'_data', true);
+                    $post_2->link = get_post_meta($post_2->ID,'_url', true);
+                    $post_2->zoom = get_post_meta($post_2->ID,'_zoom', true);
+                    $post_2->hora_inicio = get_post_meta($post_2->ID,'_hora_inicio', true) ? get_post_meta($post_2->ID,'_hora_inicio', true) : "00:00";
+
+                    $posts_return[] = $post_2;
                 }
             } else {
                 $posts_return[] = $post;

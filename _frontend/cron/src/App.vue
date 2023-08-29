@@ -16,7 +16,7 @@ let position = ref(positionEventCron);
 let positionBottomCron = ref(positionBottom);
 let itemEvent = ref(null);
 
-let styleCron = 'background-color:' + backgroundColor.value + "CC";
+let styleCron = 'background-color:' + backgroundColor.value + "e6";
 
 if (position.value === "bottom-right")
   styleCron += ";bottom:" + positionBottomCron.value + "px";
