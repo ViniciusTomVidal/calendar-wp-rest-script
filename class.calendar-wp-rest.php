@@ -20,6 +20,9 @@ class CalendarWPRest {
 
 
     public function custom_events_request() {
+        setlocale(LC_ALL, 'pt_BR.utf8', 'pt_BR', 'portuguese');
+        date_default_timezone_set('America/Sao_Paulo');
+
         $current_date = date('Y-m-d');
 
         $args = [
@@ -51,6 +54,9 @@ class CalendarWPRest {
 
 
     public function custom_events_request_recent() {
+        setlocale(LC_ALL, 'pt_BR.utf8', 'pt_BR', 'portuguese');
+        date_default_timezone_set('America/Sao_Paulo');
+
         $current_date = date('Y-m-d');
 
         $args = [
