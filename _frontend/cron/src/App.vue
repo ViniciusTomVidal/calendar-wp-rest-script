@@ -148,14 +148,14 @@ section {
 
 section.bottom-right {
   position: fixed;
-  bottom: 20px;
-  right: 30px;
+  bottom: 15px;
+  right: 25px;
 }
 
 section.top-right {
   position: fixed;
   top: 60px;
-  right: 30px;
+  right: 25px;
 }
 
 section.top-left {
