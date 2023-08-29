@@ -327,6 +327,11 @@ export default {
   gap: 24px;
 }
 
+.calendar__heading {
+  margin-bottom: 0px;
+}
+
+
 .calendar__heading,
 .calendar__content {
   width: 100%;

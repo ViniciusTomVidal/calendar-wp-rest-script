@@ -15,6 +15,7 @@ class CalendarAdmin
         add_action( 'manage_agenda_posts_custom_column', [$this, 'custom_agenda_column_content'], 10, 2 );
         add_filter( 'manage_edit-agenda_sortable_columns', [$this, 'custom_agenda_sortable_columns']);
         add_action( 'pre_get_posts', [$this, 'custom_agenda_orderby']);
+        add_action('init', [$this, 'registrar_taxonomia_planos']);
 
 
         //OPTIONS PAGE
@@ -104,6 +105,10 @@ class CalendarAdmin
         if (isset($_POST['url'])) {
             update_post_meta($post_id, '_url', sanitize_text_field($_POST['url']));
         }
+
+        if (isset($_POST['zoom'])) {
+            update_post_meta($post_id, '_zoom', sanitize_text_field($_POST['zoom']));
+        }
     }
 
     function custom_agenda_columns( $columns ) {
@@ -175,6 +180,16 @@ class CalendarAdmin
             'custom-agenda-options',
             [$this, 'custom_agenda_options_callback']
         );
+
+
+        add_submenu_page(
+            'edit.php?post_type=agenda',
+            'Opções da contagem regressiva',
+            'Opções da contagem regressiva',
+            'manage_options',
+            'custom-cron-options',
+            [$this, 'custom_contagem_options_callback']
+        );
     }
 
     function custom_agenda_options_callback() {
@@ -190,13 +205,26 @@ class CalendarAdmin
     }
 
 
+    function custom_contagem_options_callback() {
+        if(isset($_POST['title'])) {
+            update_option('calendar_title', $_POST['title']);
+        }
+
+        $title = get_option("calendar_title") ? get_option("calendar_title") : "Próximos conteúdos";
+
+        ob_start();
+        $plugin_directory_url = plugins_url('', __FILE__);require 'views/options-page-cron.php';
+        echo ob_get_clean();
+    }
+
+
     //VERIFICANDO SE O ARQUIVO É EDITÁVEL
     function check_calendar_wp_rest_script_permission() {
         $file_path = WP_CONTENT_DIR . '/uploads/calendar-wp-rest-script/index.app.js';
         $is_writable = is_writable( $file_path );
 
         if ( ! $is_writable ) {
-            add_action( 'admin_notices', [$this, 'calendar_wp_rest_script_permission_alert']);
+            //add_action( 'admin_notices', [$this, 'calendar_wp_rest_script_permission_alert']);
         }
     }
 
@@ -204,5 +232,35 @@ class CalendarAdmin
         echo '<div class="notice notice-error is-dismissible">';
         echo '<p><strong>Calendar WP Rest Script:</strong> O arquivo "index.app.js" localizado em "/wp-content/uploads/calendar-wp-rest-script/" não tem permissão de escrita. Verifique as permissões do arquivo.</p>';
         echo '</div>';
+    }
+
+
+    function registrar_taxonomia_planos()
+    {
+        $labels = array(
+            'name' => 'Planos',
+            'singular_name' => 'Plano',
+            'search_items' => 'Buscar Planos',
+            'all_items' => 'Todos os Planos',
+            'parent_item' => 'Plano Pai',
+            'parent_item_colon' => 'Plano Pai:',
+            'edit_item' => 'Editar Plano',
+            'update_item' => 'Atualizar Plano',
+            'add_new_item' => 'Adicionar Novo Plano',
+            'new_item_name' => 'Nome do Novo Plano',
+            'menu_name' => 'Planos',
+        );
+
+        $args = array(
+            'labels' => $labels,
+            'hierarchical' => true,
+            'public' => true,
+            'show_ui' => true,
+            'show_admin_column' => true,
+            'query_var' => true,
+            'rewrite' => array('slug' => 'planos'),
+        );
+
+        register_taxonomy('planos', 'agenda', $args);
     }
 }

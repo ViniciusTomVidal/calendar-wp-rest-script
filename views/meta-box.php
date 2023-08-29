@@ -3,8 +3,8 @@ $data = get_post_meta($post->ID, '_data', true);
 $hora_inicio = get_post_meta($post->ID, '_hora_inicio', true);
 $hora_fim = get_post_meta($post->ID, '_hora_fim', true);
 $url = get_post_meta($post->ID, '_url', true);
+$zoom = get_post_meta($post->ID, '_zoom', true);
 ?>
-
     <table class="form-table" role="presentation">
         <tbody>
             <tr>
@@ -37,6 +37,15 @@ $url = get_post_meta($post->ID, '_url', true);
                 </th>
                 <td>
                     <input type="text" name="url" value="<?php echo esc_attr($url)?>">
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">
+                    <label for="zoom">URL para Zoom <span style="font-weight: normal">(opcional)</span></label>
+                </th>
+                <td>
+                    <input type="text" name="zoom" value="<?php echo esc_attr($zoom)?>">
                 </td>
             </tr>
         </tbody>

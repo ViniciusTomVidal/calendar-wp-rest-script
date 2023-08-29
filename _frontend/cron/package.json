@@ -1,5 +1,5 @@
 {
-  "name": "calendar-wp-rest-script-vue",
+  "name": "cron",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,12 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.4.0",
-    "moment": "^2.29.4",
+    "axios": "^1.5.0",
+    "jquery": "^3.7.1",
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.2.3",
-    "vite": "^4.4.6"
+    "@vitejs/plugin-vue": "^4.3.1",
+    "vite": "^4.4.9"
   }
 }

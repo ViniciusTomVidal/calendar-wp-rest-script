@@ -3,14 +3,7 @@ import Calendar from './components/Calendar.vue'
 import axios from "axios";
 import {onMounted, ref, watch} from "vue";
 
-let backgroundColor;
-let classContainerText;
-let events;
 
-backgroundColor = ref(vueColor);
-classContainerText = ref(classContainer);
-let valueColor = ref(textColor);
-let titleEventText = ref(titleEvent);
 
 events = ref([]);
 let month = ref(null);
@@ -132,6 +125,8 @@ const changeMonth = (event) => {
 .calendar {
   max-width: 496px;
 }
+
+
 
 .events {
   margin-top: 32px;
