@@ -81,7 +81,7 @@ class CalendarWPRest {
                 ),
             ),
         ];
-
+        $current_time = date('H:i');
         $posts = get_posts($args);
         $posts_return = [];
         foreach ($posts as $post) {
@@ -89,7 +89,14 @@ class CalendarWPRest {
             $post->link = get_post_meta($post->ID,'_url', true);
             $post->zoom = get_post_meta($post->ID,'_zoom', true);
             $post->hora_inicio = get_post_meta($post->ID,'_hora_inicio', true) ? get_post_meta($post->ID,'_hora_inicio', true) : "00:00";
-            $posts_return[] = $post;
+
+            if($current_date === get_post_meta($post->ID,'_data', true)) {
+                if (strtotime($post->hora_inicio) > strtotime($current_time)) {
+                    $posts_return[] = $post;
+                }
+            } else {
+                $posts_return[] = $post;
+            }
         }
         return $posts_return;
     }

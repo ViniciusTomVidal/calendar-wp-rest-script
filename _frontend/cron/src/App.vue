@@ -119,8 +119,8 @@ const getPlano = () => {
   width: 40px;
   height: 40px;
   position: absolute;
-  top: 13px;
-  left: 11px;
+  top: 12px;
+  left: 12px;
 }
 
 .minimized-true {
