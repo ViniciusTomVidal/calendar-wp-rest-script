@@ -3,7 +3,13 @@ import Calendar from './components/Calendar.vue'
 import axios from "axios";
 import {onMounted, ref, watch} from "vue";
 
+let backgroundColor;
+let classContainerText;
 
+backgroundColor = ref(vueColor);
+classContainerText = ref(classContainer);
+let valueColor = ref(textColor);
+let titleEventText = ref(titleEvent);
 
 let events = ref([]);
 let month = ref(null);
