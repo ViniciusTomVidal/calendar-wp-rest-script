@@ -54,6 +54,9 @@ onMounted(() => {
 const getPlano = () => {
 // Select all elements with the class ".group-title a"
   const elements = document.querySelectorAll('.list-group .group-title a');
+
+  if(elements.length > 0) return false;
+
   let iPlano = 0;
 // Loop through each element
   for (let i = 0; i < elements.length; i++) {
