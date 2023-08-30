@@ -5,7 +5,7 @@ import {onMounted, ref, watch} from "vue";
 
 
 
-events = ref([]);
+let events = ref([]);
 let month = ref(null);
 let loading = ref(false);
 let eventsElement = ref(null);
