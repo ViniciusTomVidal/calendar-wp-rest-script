@@ -42,6 +42,7 @@ export default {
   methods: {
     changeMonth(isNext) {
       let month = this.current.month;
+      let year = this.current.year;
       isNext === true ? (month = month + 1) : (month = month - 1);
       if (month <= 0) {
         month = 12;
@@ -52,7 +53,7 @@ export default {
         this.current.year = this.current.year + 1;
       }
       this.current.month = month;
-      this.$emit('changeMonth', month);
+      this.$emit('changeMonth', {month, year});
       this.current.date = 1;
 
     },

@@ -35,6 +35,18 @@ class CalendarWPRest {
                     'compare' => '>=', // Buscar datas maiores ou iguais
                     'type' => 'DATE',
                 ),
+                array(
+                    'key' => '_data', // Nome do campo personalizado (meta)
+                    'value' => $_GET['year'].'-'.intval($_GET['month']).'-'.'01', // Data específica após a qual você deseja buscar
+                    'compare' => '>=', // Buscar datas maiores ou iguais
+                    'type' => 'DATE',
+                ),
+                array(
+                    'key' => '_data', // Nome do campo personalizado (meta)
+                    'value' => $_GET['year'].'-'.intval($_GET['month'] + 1).'-'.'01', // Data específica após a qual você deseja buscar
+                    'compare' => '<', // Buscar datas maiores ou iguais
+                    'type' => 'DATE',
+                ),
             ),
             'meta_key' => '_data', // Chave para ordenação pela data do evento
             'orderby' => 'meta_value', // Ordenar pela chave do meta

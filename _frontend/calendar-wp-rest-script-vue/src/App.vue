@@ -12,17 +12,19 @@ let valueColor = ref(textColor);
 let titleEventText = ref(titleEvent);
 
 let events = ref([]);
-let month = ref(null);
+let month = ref((new Date()).getMonth() + 1);
+let year = ref((new Date()).getFullYear());
 let loading = ref(false);
 let eventsElement = ref(null);
 let elementFocus = ref(0);
 
 
 const getEvents = () => {
-  axios.get(replaceUrlBase(urlBase, '/wp-json/wp-calendar/v1/events')).then((x) => {
+  axios.get(replaceUrlBase(urlBase, '/wp-json/wp-calendar/v1/events?month=' + month.value + "&year=" + year.value)).then((x) => {
     events.value = x.data;
     if(events.value.length > 0)
     month.value = new Date(events.value[0].date).getMonth() + 1;
+    year.value = new Date(events.value[0].date).getFullYear();
     loading.value = false;
   })
 };
@@ -65,8 +67,10 @@ watch(elementFocus, (newVal, oldVal) => {
 
 const changeMonth = (event) => {
   console.log( elementFocus.value );
+  month.value = event.month;
+  year.value = event.year;
   const filter = events.value.findIndex((x) => {
-    return new Date(x.date).getMonth() + 1 === event;
+    return new Date(x.date).getMonth() + 1 === event.month && new Date(x.date).getFullYear() === event.year;
   });
   if(filter != -1 && events.value.length > 4)
     if ((events.value.length - 4) >= filter) {
@@ -74,6 +78,8 @@ const changeMonth = (event) => {
     } else {
       elementFocus.value = events.value.length  - 4;
     }
+  getEvents();
+
 }
 
 
