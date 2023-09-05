@@ -53,7 +53,7 @@ export default {
         this.current.year = this.current.year + 1;
       }
       this.current.month = month;
-      this.$emit('changeMonth', {month, year});
+      this.$emit('changeMonthApp', {month, year});
       this.current.date = 1;
 
     },
@@ -240,8 +240,6 @@ export default {
         dayOfWeek1 = test[0];
       }
 
-
-      console.log(dayOfWeek1);
 
       var hours = this.person ? this.hour2Minutes(dayOfWeek1.hora_de_fim) - this.hour2Minutes(dayOfWeek1.hora_de_inicio) : this.hour2Minutes(this.data.fim) - this.hour2Minutes(this.data.inicio);
       var agend = Math.floor(hours / parseInt(this.data.intervalo));

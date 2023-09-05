@@ -22,9 +22,9 @@ let elementFocus = ref(0);
 const getEvents = () => {
   axios.get(replaceUrlBase(urlBase, '/wp-json/wp-calendar/v1/events?month=' + month.value + "&year=" + year.value)).then((x) => {
     events.value = x.data;
-    if(events.value.length > 0)
-    month.value = new Date(events.value[0].date).getMonth() + 1;
-    year.value = new Date(events.value[0].date).getFullYear();
+    //if(events.value.length > 0)
+    //month.value = new Date(events.value[0].date).getMonth() + 1;
+    //year.value = new Date(events.value[0].date).getFullYear();
     loading.value = false;
   })
 };
@@ -54,10 +54,6 @@ const scrollUp = () => {
 
 
 watch(elementFocus, (newVal, oldVal) => {
-  const primeiraChave = events.value[newVal].date;
-  const monthDate = new Date(primeiraChave)
-  month.value = monthDate.getMonth() + 1;
-
   const scrollableElement = document.getElementById('scrollable-element');
   scrollableElement.scrollTo({
     top: elementFocus.value * 83,
@@ -65,21 +61,11 @@ watch(elementFocus, (newVal, oldVal) => {
   });
 });
 
-const changeMonth = (event) => {
-  console.log( elementFocus.value );
+const changeMonthApp = (event) => {
+  elementFocus.value = 0;
   month.value = event.month;
   year.value = event.year;
-  const filter = events.value.findIndex((x) => {
-    return new Date(x.date).getMonth() + 1 === event.month && new Date(x.date).getFullYear() === event.year;
-  });
-  if(filter != -1 && events.value.length > 4)
-    if ((events.value.length - 4) >= filter) {
-      elementFocus.value = filter;
-    } else {
-      elementFocus.value = events.value.length  - 4;
-    }
   getEvents();
-
 }
 
 
@@ -92,7 +78,7 @@ const changeMonth = (event) => {
       <div class="content" :style="'background-color:' + backgroundColor">
         <div class="flex g40 flex-column-mobile">
           <div class="calendar">
-            <Calendar :events="events" :month="month" @changeMonth="changeMonth($event)"/>
+            <Calendar :events="events" :month="month" @changeMonthApp="changeMonthApp($event)"/>
           </div>
           <div class="context">
             <h2 :style="'color:' + valueColor">{{ titleEventText }}</h2>
@@ -108,7 +94,7 @@ const changeMonth = (event) => {
                 </a>
               </li>
             </ul>
-            <div class="buttons-overflow flex flex-end" v-if="events.length > 4">
+            <div class="buttons-overflow flex flex-end">
               <a href="#" style="transform: rotate(180deg)" @click="scrollUp()" onclick="return false" :class="{'notFocus' : elementFocus === 0}" >
                 <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -117,7 +103,7 @@ const changeMonth = (event) => {
                 </svg>
               </a>
 
-              <a href="#" @click="scrollDown()" onclick="return false" :class="{'notFocus' : elementFocus > (events.length - 5)}">
+              <a href="#" @click="scrollDown()" onclick="return false" :class="{'notFocus' : elementFocus > (events.length - 5) || events.length <= 4}">
                 <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                       d="M26.6666 16.5153L24.7866 14.6353L17.3333 22.0753L17.3333 5.84863L14.6666 5.84863L14.6666 22.0753L7.21329 14.6353L5.33329 16.5153L16 27.182L26.6666 16.5153Z"
