@@ -72,8 +72,18 @@ export default {
       return parseInt(hours.slice(0, 2)) * 60 + parseInt(hours.slice(3, 5));
     },
     doesEventExist(date) {
-      const filter = this.events.filter((x) => x.date === date);
+      const filter = this.events.filter((x) => {
+        console.log(this.formatDate(new Date(x.date_utc)), date)
+        return this.formatDate(new Date(x.date_utc)) === date;
+      });
       return filter.length > 0;
+    },
+    formatDate(date) {
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+
+      return `${year}-${month}-${day}`;
     }
   },
   computed: {

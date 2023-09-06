@@ -34,7 +34,7 @@ const replaceUrlBase = (urlB, add = '') => {
 }
 
 const formatDate = (inputDate) => {
-  const date = new Date(inputDate + 'T00:00:00');
+  const date = new Date(inputDate);
   const day = (date.getDate()).toString().padStart(2, '0');
   const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adicione 1 ao mês
   return `${day}.${month}`;
@@ -68,6 +68,17 @@ const changeMonthApp = (event) => {
   getEvents();
 }
 
+const formatTime = (time) => {
+  const hours = time.getHours().toString().padStart(2, '0');
+  const minutes = time.getMinutes().toString().padStart(2, '0');
+
+  if (minutes === '00') {
+    return `${hours}h`;
+  } else {
+    return `${hours}h${minutes}`;
+  }
+}
+
 
 // expose the ref to the template
 </script>
@@ -86,10 +97,10 @@ const changeMonthApp = (event) => {
               <li v-for="(event, date) in events" :style="'border-color:' + valueColor">
                 <a :href="event.link" :style="!event.link ? 'pointer-events:none' : ''">
                   <span :style="'color:' + valueColor">
-                    {{ formatDate(event.date) }}
+                    {{ formatDate(event.date_utc) }}
                   </span>
                   <p :style="'color:' + valueColor">
-                    {{ event.post_title }}
+                    {{formatTime(new Date(event.date_utc))}} - {{ event.post_title }}
                   </p>
                 </a>
               </li>

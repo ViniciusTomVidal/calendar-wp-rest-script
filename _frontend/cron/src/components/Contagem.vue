@@ -13,7 +13,7 @@ export default defineComponent({
     // You can also use reactive or ref to create reactive data
     // Example:
     let valueColor = ref(textColorCron);
-    const targetDate = new Date(props.itemEvent.date + 'T' + props.itemEvent.hora_inicio + ":01"); // Replace with your target date and time
+    const targetDate = new Date(props.itemEvent.datetime_utc_js);
     const currentDate = ref(new Date());
     const timeRemaining = ref(getTimeRemaining());
 
