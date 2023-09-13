@@ -153,7 +153,7 @@ class CalendarWPRest {
                     'post__in' => $post_in, // Para buscar todos os posts, use -1
                     'meta_query' => array(
                         array(
-                            'key' => '_hora_inicio', // Nome do campo personalizado (meta)
+                            'key' => '_hora_fim', // Nome do campo personalizado (meta)
                             'value' => $current_time, // Data específica após a qual você deseja buscar
                             'compare' => '>=', // Buscar datas maiores ou iguais
                             'type' => 'TIME',

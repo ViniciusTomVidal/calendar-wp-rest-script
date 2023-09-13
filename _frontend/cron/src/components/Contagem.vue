@@ -56,22 +56,22 @@ export default defineComponent({
     </h2>
     <div class="flex">
         <div class="dias">
-          <span>{{ timeRemaining.days }}</span>
+          <span>{{ timeRemaining.days ? timeRemaining.days : 0}}</span>
           Dias
         </div>
 
         <div class="horas">
-          <span>{{ timeRemaining.hours }}</span>
+          <span>{{ timeRemaining.hours ? timeRemaining.hours : '00'}}</span>
           Horas
         </div>
 
         <div class="minutos">
-          <span>{{ timeRemaining.minutes }}</span>
+          <span>{{ timeRemaining.minutes ? timeRemaining.minutes : '00' }}</span>
           Minutos
         </div>
 
       <div class="minutos" style="min-width: 52px">
-        <span>{{ timeRemaining.seconds }}</span>
+        <span>{{ timeRemaining.seconds ? timeRemaining.seconds : '00' }}</span>
         Segundos
       </div>
     </div>

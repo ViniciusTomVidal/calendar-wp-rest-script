@@ -39,6 +39,11 @@ const replaceUrlBase = (urlB, add = '') => {
 onMounted(() => {
   $(document).ready(() => {
     const PlanoC = getPlano();
+    console.log($(window).innerWidth());
+
+    if($(window).innerWidth() <= 768) {
+      minimized.value = true;
+    }
 
     if (PlanoC)
       localStorage.setItem("plano", getPlano());
@@ -47,6 +52,10 @@ onMounted(() => {
 
 
     if(plano.value) getEvent();
+
+    setInterval(() => {
+      getEvent();
+    }, 1000)
   })
 })
 
