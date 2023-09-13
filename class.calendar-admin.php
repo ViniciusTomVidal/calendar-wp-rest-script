@@ -22,7 +22,7 @@ class CalendarAdmin
         add_action( 'admin_menu', [$this, 'custom_agenda_options_page']);
 
         //VERIFICAR SE EXISTE PERMISSAO DE ESCRITA
-        add_action( 'admin_init', [$this, 'check_calendar_wp_rest_script_permission']);
+        //add_action( 'admin_init', [$this, 'check_calendar_wp_rest_script_permission']);
 
     }
 
@@ -153,8 +153,15 @@ class CalendarAdmin
             return;
         }
 
+        if($query->get('post_type') !== 'agenda') {
+            return;
+        }
+
         $orderby = $query->get( 'orderby' );
 
+
+         
+            
         if ( empty( $orderby ) ) {
             $query->set( 'orderby', array( 'meta_value' => 'DESC', 'meta_value_time' => 'DESC' ) );
             $query->set( 'meta_key', '_data' );
