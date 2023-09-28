@@ -17,11 +17,22 @@ let year = ref((new Date()).getFullYear());
 let loading = ref(false);
 let eventsElement = ref(null);
 let elementFocus = ref(0);
+let firstRef = ref(true);
 
 
 const getEvents = () => {
   axios.get(replaceUrlBase(urlBase, '/wp-json/wp-calendar/v1/events?month=' + month.value + "&year=" + year.value)).then((x) => {
     events.value = x.data;
+
+    if(x.data.length === 0 && firstRef) {
+      month.value = (new Date()).getMonth() + 2;
+      getEvents();
+      firstRef.value = false;
+
+      return;
+    }
+
+    firstRef.value = false;
     //if(events.value.length > 0)
     //month.value = new Date(events.value[0].date).getMonth() + 1;
     //year.value = new Date(events.value[0].date).getFullYear();
